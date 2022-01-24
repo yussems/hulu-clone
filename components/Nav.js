@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 import request from "../utils/request";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronRightIconIcon,
+} from "@heroicons/react/outline";
 
 function Nav() {
+  const scrolRef = useRef(null);
   const handleLeft = (e) => {
-    
-  }
+    scrolRef.current.scrollLeft -= 1050 / 2;
+  };
   const handleRight = (e) => {
-    
-  }
+    scrolRef.current.scrollLeft += 1050 / 2;
+  };
   return (
     <nav className="flex justify-center m-10">
-      <button onClick={handleLeft}>se</button>
-      <div className="flex m-10 px-10 sm:px-20 text-2xl whitespace-nowrap space-x-10 sm:space-x-20 overflow-x-scroll over scrollbar-hide overflow-y-hidden overflow-auto">
+      <button onClick={handleLeft}>
+        <ChevronLeftIcon className="w-5" />
+      </button>
+      <div
+        ref={scrolRef}
+        className="flex m-10 px-10 sm:px-20 text-2xl whitespace-nowrap space-x-10 sm:space-x-20 overflow-x-scroll over scrollbar-hide overflow-y-hidden"
+      >
         {Object.entries(request).map((item) => {
           const [key, { title, url }] = item;
           return (
@@ -24,8 +35,9 @@ function Nav() {
           );
         })}
       </div>
-      <button  onClick={handleRight}>se</button>
-
+      <button onClick={handleRight}>
+        <ChevronRightIcon className="w-5" />
+      </button>
     </nav>
   );
 }
